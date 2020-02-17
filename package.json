@@ -1,0 +1,9 @@
+{
+  "name": "lemonchat",
+  "version": "0.0.1",
+  "description": "basic socket.io chat",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^2.3.0"
+  }
+}
