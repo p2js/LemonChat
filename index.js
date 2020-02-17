@@ -19,7 +19,7 @@ const nicknamearray = ['nickname','user','fridge','stranger', 'home']
 for later use, nick randomisation to avoid having to put in a prompt?
 */
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '\\index.html'); //pushes out the index.html file to anyone that connects
+  res.sendFile(__dirname + '/index.html'); //pushes out the index.html file to anyone that connects
 });
 io.on('connection', function(socket){ //when a user connects..
   usersOnline++;                      //add a user to the count
