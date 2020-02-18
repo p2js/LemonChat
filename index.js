@@ -8,7 +8,7 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3333; //Change that number to change the port
-const swearFilter = false; //Set this to true if you want swear filtering
+const swearFilter = true; //Set this to false if you want swear filtering
 let forbiddenWords;
 if(swearFilter === true) {
 forbiddenWords = require('./forbiddenWords.json') //credit to BasicCCP for his swear filter; https://github.com/basicCCP/swearFilter
@@ -39,6 +39,7 @@ io.on('connection', function(socket){ //when a user connects..
 });
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){ //when the app detects a chat message from the html file...
+  if(msg === "" || msg ===" ") return; //prevents empty message spam
     if(swearFilter === true) { //if the swear filter is enabled...
       let msgContent = msg.toLowerCase().split(" "); //split the message into an array (eg. "Hello world" into ["hello", "world"])
       let i; //make variable i
