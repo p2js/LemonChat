@@ -39,7 +39,7 @@ io.on('connection', function(socket){ //when a user connects..
 });
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){ //when the app detects a chat message from the html file...
-  if(msg === "" || msg ===" " || msg.toLowerCase() = 'a') return; //A limiter to low-effort spam
+  if(msg === "" || msg ===" " || msg.toLowerCase() === 'a') return; //A limiter to low-effort spam
     if(swearFilter === true) { //if the swear filter is enabled...
       let msgContent = msg.toLowerCase().split(" "); //split the message into an array (eg. "Hello world" into ["hello", "world"])
       let i; //make variable i
