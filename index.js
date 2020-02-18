@@ -8,10 +8,10 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3333; //Change that number to change the port
-const swearFilter = true; //Set this to false if you want swear filtering
+const swearFilter = false; //Set this to true if you want swear filtering
 let forbiddenWords;
 if(swearFilter === true) {
-forbiddenWords = require('./forbiddenWords.json') //credit to BasicCCP for his swear filter; https://github.com/basicCCP/swearFilter
+forbiddenWords = require('./forbiddenWords.json')
 }
 let usersOnline = 0;
 /*
