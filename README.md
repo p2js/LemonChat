@@ -1,10 +1,16 @@
 # LemonChat-beta
 beta for a socket.io based chat app. NICKNAMES COMING SOON
-Features:
+
+Current features:
 - spam prevention
 - optional swear filtering
-- some great 1990's web design
+- 1990's web design
 - code BEAUTIFULLY commented out
+
+Coming Soon:
+- nicknames
+- built-in text formatting (__bold__, _italic_, underlined text)
+- image support? Maybe...
 
 Version 0.2.1: index.js now prevents empty messages from getting pushed out
 
