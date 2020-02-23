@@ -5,7 +5,6 @@ Current features:
 - spam prevention
 - optional swear filtering
 - 1990's web design
-- code BEAUTIFULLY commented out
 
 Coming Soon:
 - nicknames
