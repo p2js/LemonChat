@@ -10,7 +10,6 @@ const http = require('http').createServer(app); //hosts an "app" server
 const io = require('socket.io')(http); //socket.io is for the handling of the chat
 const port = process.env.PORT || 3333; //Change that number to change the port
 const swearFilter = false; //Set this to true if you want swear filtering
-const storeMsgs = false; //set this to true if you want to store files in a storedmessages.txt file
 let forbiddenWords;
 if(swearFilter === true) {
 forbiddenWords = require('./forbiddenWords.json')
@@ -48,18 +47,9 @@ io.on('connection', function(socket){
       for (i = 0; i < forbiddenWords.words.length; i++) { //repeat for each word in the file...
         if(msgContent.includes(forbiddenWords.words[i]) || msgContent.includes(forbiddenWords.words[i] + 's')) { //if the message contains any swear words...
           return; //don't send the message
-        }}
+        }};
         io.emit('chat message', msg); //push the message out to everyone
-        if(storeMsgs === true) fs.appendFile('storedmessages.txt', `${msg}\n`, (err)=> { //store the message in a 'storedmessages.txt' file
-          if(err) throw(err); //handle any errors caused by FS
-        });
-      } else {
-        io.emit('chat message', msg);
-        if(storeMsgs === true) fs.appendFile('storedmessages.txt', `${msg}\n`, (err)=> { //store the message in a 'storedmessages.txt' file
-          if(err) throw(err); //handle any errors caused by FS
-        });
-      } //push the message out to everyone
-
+      } else io.emit('chat message', msg); //push the message out to everyone
   });
 });
 http.listen(port, function(){ //listen on the port defined at the top of the file
