@@ -1,0 +1,89 @@
+//setting up all the variables and dependencies
+const express = require('express');
+const app = express();
+const path = require('path');
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const port = process.env.PORT || 3333;
+//swear filter setup
+const swearFilter = true; //set this to true if you want swear filtering
+let forbiddenWords;
+if(swearFilter == true) forbiddenWords = require('./forbiddenWords.json');
+//setting up the server
+server.listen(port, () => {
+  console.log('Server listening at port %d', port);
+});
+//pushing out the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+//the message fucntion
+let numUsers = 0;
+io.on('connection', (socket) => {
+  let addedUser = false;
+  //when the client emits 'new message', this listens and executes
+  socket.on('new message', (data) => {
+    //low-effort spam filtering and swear filtering
+    if(data === "" || data ===" " || data.toLowerCase() === 'a') return;
+	let temp = true;
+    if(swearFilter === true) {
+      //split the message into an array (eg. "Hello world" into ["hello", "world"])
+      let msgContent = data.toLowerCase().split(" ");
+       //for each word in the file, if the message contains a word in the file don't send the message
+	   //if the message contains any swear words...
+        const item = msgContent.find(it => forbiddenWords.words.find(i => i.includes(it)));
+		if (item){
+		  temp = false;
+          console.log(temp);
+        } else {
+        socket.broadcast.emit('new message', {
+          username: socket.username,
+          message: data
+		})
+		console.log("messange sent from here");
+		}
+    } else {
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+	console.log("you're an idiot");
+  }});
+  //function when a new user joins
+  socket.on('add user', (username) => {
+    if (addedUser) return;
+    //we store the username in the socket session for this client
+    socket.username = username;
+    ++numUsers;
+    addedUser = true;
+    socket.emit('login', {
+      numUsers: numUsers
+    });
+    //broadcast that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+  });
+  //broadcast to people when someone is typing
+    socket.on('typing', () => {
+    socket.broadcast.emit('typing', {
+      username: socket.username
+    });
+  });
+  //when someone is no longer typing, we broadcast a 'stopped typing' that no longer shows the typing
+  socket.on('stop typing', () => {
+    socket.broadcast.emit('stop typing', {
+      username: socket.username
+    });
+  });
+  //function for when the user disconnects
+  socket.on('disconnect', () => {
+    if (addedUser) {
+      --numUsers;
+      //broadcast that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers
+      });
+    }
+  });
+});
