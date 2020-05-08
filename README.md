@@ -3,11 +3,10 @@ beta for a socket.io based chat app. NICKNAMES COMING SOON
 
 Current features:
 - spam prevention
-- optional swear filtering
 - 1990's web design
+- nicknames!
 
 Coming Soon:
-- nicknames
 - built-in text formatting (__bold__, _italic_, underlined text)
 - image support? Maybe...
 
