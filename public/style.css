@@ -95,10 +95,14 @@ background-color: rgb(233, 255, 41);
   background: #555
 }
 
+h1{
+    padding: 0px;
+    margin: 0px;
+}
 /* Font */
 
 .messages {
-  font-size: 150%;
+  font-size: 130%;
   color: #FFFFFF
 }
 
@@ -116,14 +120,14 @@ background-color: rgb(233, 255, 41);
 /* Messages */
 
 .chatArea {
-  height: 100%;
+  height: 90%;
   padding-bottom: 60px;
 }
 
 .messages {
   height: 100%;
   margin: 0;
-  overflow-y: scroll;
+  overflow: hidden; /* Hide scrollbars */
   padding: 10px 20px 10px 20px;
 }
 

@@ -6,8 +6,8 @@ $(function() {
     '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
     '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
   ];
-
   // Initialize variables
+  var audio = new Audio('notif.mp3');
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
   var $messages = $('.messages'); // Messages area
@@ -28,7 +28,7 @@ $(function() {
   const addParticipantsMessage = (data) => {
     var message = '';
     if (data.numUsers === 1) {
-      message += "there's 1 participant";
+      message += "you seem to be alone right now";
     } else {
       message += "there are " + data.numUsers + " participants";
     }
@@ -76,6 +76,7 @@ $(function() {
 
   // Adds the visual chat message to the message list
   const addChatMessage = (data, options) => {
+
     // Don't fade the message in if there is an 'X was typing'
     var $typingMessages = getTypingMessages(data);
     options = options || {};
@@ -238,6 +239,11 @@ $(function() {
 
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', (data) => {
+    //notification system
+    if (!document.hasFocus())  {
+      audio.volume = 0.15;
+      audio.play();
+    }
     addChatMessage(data);
   });
 
