@@ -5,13 +5,14 @@ Current features:
 - spam prevention
 - 1990's web design
 - nicknames!
+- Chat bots that do your homework
+- a notification system
 
 Coming Soon:
-- built-in text formatting (__bold__, _italic_, underlined text)
-- image support? Maybe...
+no idea
 
-Version 0.2.1: index.js now prevents empty messages from getting pushed out
+Version 1.1.0: bots and a notification system
 
-for easy online hosting you can [![Run on Repl.it](https://repl.it/badge/github/Afo0/LemonChat-beta)](https://repl.it/github/Afo0/LemonChat-beta)
+for easy online hosting you can [![Run the beta version on repl.it ](https://repl.it/badge/github/Afo0/LemonChat-beta)](https://repl.it/github/Afo0/LemonChat-beta)
 
-requires essentials `npm i essential` installed in the folder to run
+requires installing the packages with `npm i` in the folder to run
