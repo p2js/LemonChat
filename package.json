@@ -1,9 +1,16 @@
 {
   "name": "lemonchat",
-  "version": "0.0.1",
-  "description": "basic socket.io chat",
+  "version": "1.0.0",
+  "description": "a socket.io chat app with plenty of neat built-in features",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "P2JS",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2",
+    "express": "^4.17.1",
+    "mathjs": "^7.0.0",
     "socket.io": "^2.3.0"
   }
 }
