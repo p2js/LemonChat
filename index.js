@@ -1,14 +1,15 @@
 //setting up all the variables and dependencies
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const port = process.env.PORT || 3333;
-//swear filter setup
-const swearFilter = true; //set this to true if you want swear filtering
-let forbiddenWords;
-if(swearFilter == true) forbiddenWords = require('./forbiddenWords.json');
+const mathBot = require('./mathBot.js');
+const listBot = require('./listBot.js');
+let usersOnline = [];
+
 //setting up the server
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
@@ -21,37 +22,22 @@ io.on('connection', (socket) => {
   let addedUser = false;
   //when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
-    //low-effort spam filtering and swear filtering
+    //low-effort spam filtering
     if(data === "" || data ===" " || data.toLowerCase() === 'a') return;
-	let temp = true;
-    if(swearFilter === true) {
-      //split the message into an array (eg. "Hello world" into ["hello", "world"])
-      let msgContent = data.toLowerCase().split(" ");
-       //for each word in the file, if the message contains a word in the file don't send the message
-	   //if the message contains any swear words...
-        const item = msgContent.find(it => forbiddenWords.words.find(i => i.includes(it)));
-		if (item){
-		  temp = false;
-          console.log(temp);
-        } else {
-        socket.broadcast.emit('new message', {
-          username: socket.username,
-          message: data
-		})
-		console.log("messange sent from here");
-		}
-    } else {
-    socket.broadcast.emit('new message', {
+	  socket.broadcast.emit('new message', {
       username: socket.username,
       message: data
     });
-	console.log("you're an idiot");
-  }});
+    mathBot(data, socket); //function for the mathbot
+    listBot(data, socket, usersOnline); //function for the listbot
+  });
   //function when a new user joins
   socket.on('add user', (username) => {
     if (addedUser) return;
     //we store the username in the socket session for this client
     socket.username = username;
+    usersOnline.push(username);
+    console.log(usersOnline);
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
@@ -79,6 +65,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (addedUser) {
       --numUsers;
+      for (let i = 0; i < usersOnline.length; i++) {
+        if (usersOnline[i] == socket.username) {
+          usersOnline.splice(i, 1);
+          console.log(usersOnline);
+        }
+      }
       //broadcast that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
