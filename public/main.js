@@ -311,5 +311,3 @@ function themeMashup() {
   document.getElementById("msgInput").style.borderColor = "rgb("+ document.getElementById("setIn3").value + ")";
   document.getElementById("body").style.fontFamily = document.getElementById("setIn4").value;
 }
-
-var cookie = document.cookie;
