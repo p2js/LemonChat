@@ -12,10 +12,8 @@ $(function() {
   var $usernameInput = $('.usernameInput'); // Input for username
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
-
   var $loginPage = $('.login.page'); // The login page
-  var $chatPage = $('.chat.page'); // The chatroom page
-
+  var $chatPage = $('.chat.page'); // The chatroom pages
   // Prompt for setting a username
   var username;
   var connected = false;
@@ -44,8 +42,6 @@ $(function() {
       $loginPage.fadeOut();
       $chatPage.show();
       $loginPage.off('click');
-      $currentInput = $inputMessage.focus();
-
       // Tell the server your username
       socket.emit('add user', username);
     }
@@ -284,5 +280,36 @@ $(function() {
   socket.on('reconnect_error', () => {
     log('attempt to reconnect has failed');
   });
-
 });
+
+  function credits() {
+    var $loginPage = $('.login.page'); // The login page
+    var $creditsPage = $('.credits.page'); //The Credits page
+    $loginPage.fadeOut();
+    $creditsPage.show();
+    $loginPage.off('click');
+  }
+
+var settingsToggle = false;
+
+  function settingsButton() {
+    var $settingsPage = $('.settings.page');
+    if (settingsToggle === true) {
+      $settingsPage.hide();
+      settingsToggle = false;
+    }
+    else {
+      $settingsPage.show();
+      settingsToggle = true;
+    }
+  }
+
+function themeMashup() {
+  document.getElementById("headerColor").style.backgroundColor = "rgb(" + document.getElementById("setIn1").value + ")";
+  document.getElementById("chatColors").style.backgroundColor = "rgb(" + document.getElementById("setIn2").value + ")";
+  document.getElementById("LemonChatHeader").style.color = "rgb(" + document.getElementById("setIn2").value + ")";
+  document.getElementById("msgInput").style.borderColor = "rgb("+ document.getElementById("setIn3").value + ")";
+  document.getElementById("body").style.fontFamily = document.getElementById("setIn4").value;
+}
+
+var cookie = document.cookie;

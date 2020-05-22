@@ -4,26 +4,49 @@
   <meta charset="UTF-8">
   <title>Lemonchat</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type='image/ico' href='./favicon.ico' />
 </head>
-<body>
+<body id="body">
   <ul class="pages">
     <li class="chat page">
-      <div class="header">
-      <h1>LemonChat</h1>
-    </div>
-      <div class="chatArea">
+      <div id="headerColor" class="header">
+        <h1 id="LemonChatHeader" class="mainHeader">LemonChat</h1>
+        <span title="Theme editor"><img class="settingsIcon" onclick='settingsButton()' src="./cogIcon.png"></span>
+      </div>
+      <div id ="chatColors" class="chatArea">
         <ul class="messages"></ul>
       </div>
-      <input class="inputMessage" placeholder="Type a message, or try some math with /math..."/>
+      <input id="msgInput" class="inputMessage" placeholder="Type a message, or try some math with /math..."/>
     </li>
     <li class="login page">
       <div class="form">
         <h3 class="title", style="color:rgb(233, 255, 41)";>What's your nickname?</h3>
         <input class="usernameInput" type="text" maxlength="14" />
       </div>
+      <button class="creditsButton" onclick="credits()">credits</button>
+    </li>
+    <li class='credits page'>
+      <h1 class='creditsHeader'>LemonChat</h1>
+      <div class="creditsText">
+        <i>est. 1995; The chat of the past, for the future.</i>
+        <p>Made by: <a href="https://github.com/p2js">Alfio</a></p>
+        <p>With a bunch of help from: <a href="https://github.com/Nevin1901">Nevin</a></p>
+        <p>Made possible by all my beta testers! <3</p>
+        <button class="goBackButton" onclick="location.reload();">Take me back to lemonchat!</button>
+      </div>
+    </li>
+    <li class='settings page'>
+      <p>Header RGB value</p>
+      <input id="setIn1" placeholder="233, 255, 41"></input>
+      <p>Background RGB value</p>
+      <input id="setIn2" placeholder="85, 85, 85">
+      <p>Input box border color</p>
+      <input id="setIn3" placeholder= "0, 0, 0">
+      <p>Font</p>
+      <input id="setIn4" placeholder="Times New Roman">
+      <button class="tryItButton" onclick='themeMashup()'>apply</button>
     </li>
   </ul>
-
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/main.js"></script>
