@@ -1,7 +1,7 @@
 {
   "name": "lemonchat",
-  "version": "1.0.0",
-  "description": "a socket.io chat app with plenty of neat built-in features",
+  "version": "1.2.0",
+  "description": "a socket.io chat app with plenty of neat additional features",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
