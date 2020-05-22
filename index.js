@@ -1,11 +1,14 @@
 //setting up all the variables and dependencies
-
 const express = require('express');
 const app = express();
 const path = require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 4444;
+/* to turn off one of the bots, you can simply comment out these lines of code.
+there is also some code in lines 35-37 to call the functions inside the bot files
+you have to comment those out too or it won't work
+*/
 const mathBot = require('./mathBot.js');
 const listBot = require('./listBot.js');
 let usersOnline = [];
@@ -14,6 +17,8 @@ let usersOnline = [];
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
+
+
 //pushing out the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 //the message fucntion
@@ -29,7 +34,7 @@ io.on('connection', (socket) => {
       message: data
     });
     mathBot(data, socket); //function for the mathbot
-    listBot(data, socket, usersOnline); //function for the listbot
+    listBot(data, socket, usersOnline); //function for listBot
   });
   //function when a new user joins
   socket.on('add user', (username) => {
