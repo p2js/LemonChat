@@ -12,6 +12,6 @@ Current features:
 Coming Soon:
 no idea
 
-Version 1.3.0: Theme editor changed to hex
+Version 1.3.2: Theme editor bug fix
 
 requires installing the packages with `npm i` in the folder to run
