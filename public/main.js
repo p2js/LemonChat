@@ -305,9 +305,11 @@ var settingsToggle = false;
   }
 
 function themeMashup() {
-  document.getElementById("headerColor").style.backgroundColor = "rgb(" + document.getElementById("setIn1").value + ")";
-  document.getElementById("chatColors").style.backgroundColor = "rgb(" + document.getElementById("setIn2").value + ")";
-  document.getElementById("LemonChatHeader").style.color = "rgb(" + document.getElementById("setIn2").value + ")";
-  document.getElementById("msgInput").style.borderColor = "rgb("+ document.getElementById("setIn3").value + ")";
+  document.getElementById("headerColor").style.backgroundColor = "#" + document.getElementById("setIn1").value;
+  document.getElementById("chatColors").style.backgroundColor = "#" + document.getElementById("setIn2").value;
+  document.getElementById("LemonChatHeader").style.color = "#" + document.getElementById("setIn2").value;
+  document.getElementById("msgInput").style.borderColor = "#"+ document.getElementById("setIn3").value;
   document.getElementById("body").style.fontFamily = document.getElementById("setIn4").value;
 }
+
+var cookie = document.cookie;
