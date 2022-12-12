@@ -9,7 +9,7 @@
   "author": "P2JS",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mathjs": "^7.0.0",
     "socket.io": "^2.4.0"
   }
